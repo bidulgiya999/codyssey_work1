@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Google Principal Engineer Mentorship - Cloud Native Dev Workstation Control Dashboard built with Docker & OrbStack">
+    <title>Codyssey Dev Workstation | Cloud Control Center</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="bg-glow bg-glow-primary"></div>
+    <div class="bg-glow bg-glow-secondary"></div>
+
+    <header class="navbar glass-card">
+        <div class="logo-container">
+            <span class="pulse-indicator online"></span>
+            <h1 class="logo-text">Codyssey <span class="accent-text">Workstation OS</span></h1>
+        </div>
+        <div class="meta-badges">
+            <span class="badge badge-docker">Docker Engine: Active</span>
+            <span class="badge badge-orbstack">OrbStack Enabled</span>
+            <span class="badge badge-env" id="env-badge">APP_ENV: DEV</span>
+        </div>
+    </header>
+
+    <main class="dashboard-grid">
+        <!-- Status & Architecture Overview Card -->
+        <section class="card glass-card span-2 hero-section" id="architecture-card">
+            <div class="hero-header">
+                <h2>Cloud Native Container Workstation</h2>
+                <p class="subtitle">격리된 컨테이너 환경, 재현 가능한 스토리지, 그리고 무결점 협업 인프라</p>
+            </div>
+            <div class="status-indicators">
+                <div class="stat-box">
+                    <span class="stat-label">Port Mapping</span>
+                    <span class="stat-value text-glow-green" id="active-port">0.0.0.0:8080 &rarr; 80/tcp</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Storage Strategy</span>
+                    <span class="stat-value text-glow-blue">Bind Mount + Named Volume</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">System Uptime</span>
+                    <span class="stat-value font-mono" id="uptime-counter">00:00:00</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Container Telemetry Card -->
+        <section class="card glass-card interactive-card" id="telemetry-card">
+            <div class="card-header">
+                <h3>⚡ Container Telemetry & Diagnostics</h3>
+                <button class="action-btn" id="refresh-btn">Run Diagnostic</button>
+            </div>
+            <div class="terminal-box" id="diagnostic-log">
+                <div class="terminal-line"><span class="prompt">$</span> checking docker daemon communication... <span class="status-ok">[OK]</span></div>
+                <div class="terminal-line"><span class="prompt">$</span> verifying bind mount hot-reload functionality... <span class="status-ok">[CONNECTED]</span></div>
+                <div class="terminal-line"><span class="prompt">$</span> container memory healthcheck... <span class="status-ok">[PASS]</span></div>
+            </div>
+            <div class="live-metrics">
+                <div class="meter-group">
+                    <label>CPU Usage <span class="meter-val" id="cpu-val">1.2%</span></label>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 1.2%; background: var(--primary-accent);"></div></div>
+                </div>
+                <div class="meter-group">
+                    <label>Memory Usage <span class="meter-val">14.2 MB / 4.0 GB</span></label>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 15%; background: var(--secondary-accent);"></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Theory & Principles Checklist -->
+        <section class="card glass-card" id="principles-card">
+            <div class="card-header">
+                <h3>🏛️ Core Architectural Principles</h3>
+            </div>
+            <ul class="principles-list">
+                <li class="principle-item" data-topic="image-vs-container">
+                    <div class="item-icon">🧩</div>
+                    <div class="item-text">
+                        <strong>Image vs Container</strong>
+                        <p>불변(Immutable) 레이어로 구성된 템플릿과 상태를 가지는 독립 실행 인스턴스</p>
+                    </div>
+                </li>
+                <li class="principle-item" data-topic="network-isolation">
+                    <div class="item-icon">🔒</div>
+                    <div class="item-text">
+                        <strong>Network Namespace Isolation</strong>
+                        <p>컨테이너 격리 영역과 호스트 현관문(Port Mapping)의 구조적 필수성</p>
+                    </div>
+                </li>
+                <li class="principle-item" data-topic="data-persistence">
+                    <div class="item-icon">💾</div>
+                    <div class="item-text">
+                        <strong>Storage Persistence (Volume)</strong>
+                        <p>컨테이너 소멸 이후에도 생존하는 완벽한 영속성 데이터 계층</p>
+                    </div>
+                </li>
+                <li class="principle-item" data-topic="linux-permissions">
+                    <div class="item-icon">🛡️</div>
+                    <div class="item-text">
+                        <strong>Linux Octal Permissions (755 vs 644)</strong>
+                        <p>소유자/그룹/기타 권한 분리 및 Directory Search Bit(x) 메커니즘</p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="footer glass-card">
+        <p>© 2026 Google Principal Engineer Mentorship | Created for Codyssey Dev Workstation Assignment</p>
+        <p class="verification-note">🔥 이 웹 사이트는 호스트 PC의 바인드 마운트를 통해 <strong>실시간 변경 반영(Hot-Reload)</strong> 검증이 가능한 상태입니다.</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

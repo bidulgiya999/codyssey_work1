@@ -1,0 +1,40 @@
+version: '3.8'
+
+# ==============================================================================
+# 보너스 미션 완수를 위한 Docker Compose 명세서
+# ==============================================================================
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: codyssey-compose-web
+    restart: unless-stopped
+    ports:
+      - "${HOST_PORT:-8080}:80"
+    volumes:
+      - ./app:/usr/share/nginx/html:ro
+    networks:
+      - codyssey-net
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:alpine
+    container_name: codyssey-compose-redis
+    restart: unless-stopped
+    volumes:
+      - redis_vol:/data
+    networks:
+      - codyssey-net
+    expose:
+      - "6379"
+
+networks:
+  codyssey-net:
+    driver: bridge
+
+volumes:
+  redis_vol:
+    driver: local
