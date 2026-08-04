@@ -121,6 +121,48 @@ Dev Workstation Ubuntu Verified!
 
 ---
 
+#### 📦 이미지 목록 확인 (`docker images`)
+```bash
+$ docker images
+REPOSITORY                 TAG       IMAGE ID       CREATED             SIZE
+codyssey-dev-workstation   1.0       a7c1071a28dc   5 hours ago         62.4MB
+redis                      alpine    cc48e0fe25c0   4 days ago          119MB
+ubuntu                     latest    86a1a31fdd84   11 days ago         100MB
+nginx                      alpine    f0ba77f796e5   2 weeks ago         62.4MB
+hello-world                latest    e2ac70e7319a   4 months ago        10.1kB
+```
+
+#### 🔍 전체 컨테이너 상태 확인 (`docker ps -a`)
+```bash
+$ docker ps -a
+CONTAINER ID   IMAGE                      COMMAND                  CREATED        STATUS         PORTS                    NAMES
+b4d1acc0ccb8   codyssey_workstation-web   "/docker-entrypoint.…"   2 hours ago    Up 2 hours     0.0.0.0:8080->80/tcp     codyssey-compose-web
+60dea9657e8b   redis:alpine               "docker-entrypoint.s…"   2 hours ago    Up 2 hours     6379/tcp                 codyssey-compose-redis
+```
+> `Up 2 hours` — 웹 서버(8080)와 Redis 캐시 컨테이너 모두 정상 구동 중임을 확인.
+
+#### 📋 컨테이너 로그 확인 (`docker logs`)
+```bash
+$ docker logs codyssey-compose-web --tail=5
+2026/08/04 12:23:57 [notice] 1#1: start worker process 26
+2026/08/04 12:23:57 [notice] 1#1: start worker process 27
+192.168.97.1 - - [04/Aug/2026:12:23:59 +0000] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 ..."
+192.168.97.1 - - [04/Aug/2026:12:23:59 +0000] "GET /style.css HTTP/1.1" 304 0 "http://localhost:8080/" "..."
+192.168.97.1 - - [04/Aug/2026:12:23:59 +0000] "GET /app.js HTTP/1.1" 304 0 "http://localhost:8080/" "..."
+```
+> Nginx access log에 브라우저(`Chrome`)로부터 HTTP 304(캐시 유효) 응답이 정상 기록됨.
+
+#### 📊 실시간 리소스 사용량 확인 (`docker stats`)
+```bash
+$ docker stats --no-stream
+CONTAINER ID   NAME                     CPU %   MEM USAGE / LIMIT     MEM %   NET I/O          BLOCK I/O    PIDS
+b4d1acc0ccb8   codyssey-compose-web     0.00%   4.973MiB / 15.67GiB   0.03%   4.25kB / 1.58kB  0B / 4.1kB   7
+60dea9657e8b   codyssey-compose-redis   0.21%   5.941MiB / 15.67GiB   0.04%   1.3kB / 126B     0B / 0B      6
+```
+> 웹 서버: CPU 0%, RAM ~5MiB — nginx:alpine 경량 이미지의 압도적 효율성 확인.
+
+---
+
 ### 3.3 커스텀 Dockerfile 웹 서버 빌드 & 포트 매핑 접속
 
 #### 🏗️ 커스텀 이미지 빌드 (`nginx:alpine` 베이스 + High-End UI + HEALTHCHECK 탑재)
