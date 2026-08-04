@@ -1,15 +1,33 @@
 # ==============================================================================
-# Git Repository 보안 및 클린 이력을 위한 철저한 배제 목록 (.gitignore)
+# Git Repository 보안 및 클린 이력을 위한 배제 목록 (.gitignore)
 # ==============================================================================
+
+# OS & Desktop specific files
 .DS_Store
 Thumbs.db
 *~
+
+# Editor directories and files
 .vscode/*
 !.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 *.swp
-*.log
+*.swo
+
+# Environment variables & sensitive token storage
 .env
 *.pem
 *.key
+secrets/
+credentials.json
+
+# Build & Temporary Output Logs
+*.log
+npm-debug.log*
 tmp/
 dist/
+build/
+
+others

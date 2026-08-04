@@ -193,7 +193,9 @@ $ curl -I http://localhost:8081
 HTTP/1.1 200 OK
 ```
 
-> **[실습 진행 시 캡처 추가 위치]**: 브라우저 주소창(`http://localhost:8080` 및 `8081`)이 명확히 보이는 **Codyssey Control Center UI 대시보드 스크린샷**을 `docs/` 폴더에 저장하여 연결합니다.
+> 📸 **브라우저 접속 증거** — `http://localhost:8080` 주소창 및 대시보드 UI 화면
+
+![포트 8080 브라우저 접속 화면](docs/8080.png)
 
 ---
 
@@ -247,6 +249,10 @@ On branch main
 nothing to commit, working tree clean
 ```
 > **🔐 보안 및 개인정보 마스킹 약속**: 본 저장소에는 암호화 토큰, `.env` 실파일, 개인 Private Key 등이 탑재되지 않도록 `.gitignore` 가 강력하게 세팅되어 있으며, 산출된 모든 스크린샷 내 개인 민감정보는 완벽히 블라인드 마스킹되었습니다.
+
+> 📸 **VSCode ↔ GitHub 연동 증거** — VSCode 내 GitHub 계정 로그인 및 저장소 연동 완료 화면
+
+![VSCode GitHub 연동 완료 화면](docs/gitconnection.png)
 
 ---
 
